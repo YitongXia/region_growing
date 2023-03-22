@@ -22,3 +22,11 @@ before running the program, use the commands below to make Eigen work properly:
 ```sudo ln -sf eigen3/Eigen Eigen```
 
 ```sudo ln -sf eigen3/unsupported unsupported```
+
+
+This CGAL component implements two algorithms for shape detection:
+
+- the Efficient RANSAC (RANdom SAmple Consensus) method;
+- the Region Growing method.
+
+Efficient RANSAC is designed for the unstructured point set with unoriented normals. This algorithm detects a set of shapes. Five types of primitive shapes are provided by this package: plane, sphere, cylinder, cone, and torus. Other primitive shapes can be easily added by the user as well.
