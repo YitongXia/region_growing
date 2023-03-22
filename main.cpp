@@ -53,21 +53,30 @@ int main(int argc, char *argv[]) {
     std::cout << std::endl <<
               "region_growing_on_polygon_mesh example started"
               << std::endl << std::endl;
-
-    // Load off data either from a local folder or a user-provided file.
-    std::ifstream in(argc > 1 ? argv[1] : CGAL::data_file_path("/Users/katherine/Desktop/thesis/region_growing/mesh/mesh.off"));
-    CGAL::IO::set_ascii_mode(in);
-    if (!in) {
-        std::cout <<
-                  "Error: cannot read the file polygon_mesh.off!" << std::endl;
-        std::cout <<
-                  "You can either create a symlink to the data folder or provide this file by hand."
-                  << std::endl << std::endl;
-        return EXIT_FAILURE;
-    }
+    
+    // when input off file is not manifold:
     Polygon_mesh polygon_mesh;
-    in >> polygon_mesh;
-    in.close();
+    std::string filename = "/Users/katherine/Desktop/thesis/region_growing/mesh/3dbag_v210908_fd2cee53_4568_lod22.off";
+    if (!CGAL::Polygon_mesh_processing::IO::read_polygon_mesh(filename, polygon_mesh)) {
+        std::cerr << "Error: Could not read mesh from file " << filename << std::endl;
+        return 1;
+    }
+  
+    // Load off data either from a local folder or a user-provided file. this is only suitable for manifold input data
+//     std::ifstream in(argc > 1 ? argv[1] : CGAL::data_file_path("/Users/katherine/Desktop/thesis/region_growing/mesh/mesh.off"));
+//     CGAL::IO::set_ascii_mode(in);
+//     if (!in) {
+//         std::cout <<
+//                   "Error: cannot read the file polygon_mesh.off!" << std::endl;
+//         std::cout <<
+//                   "You can either create a symlink to the data folder or provide this file by hand."
+//                   << std::endl << std::endl;
+//         return EXIT_FAILURE;
+//     }
+//     Polygon_mesh polygon_mesh;
+//     in >> polygon_mesh;
+//     in.close();
+    
     const Face_range face_range = faces(polygon_mesh);
     std::cout <<
               "* polygon mesh with "
